@@ -37,9 +37,12 @@ public class SaleController {
 		ArrayList<Sales> aux = (ArrayList<Sales>) saleRepository.findAll();
 		long mayor = 0;
 		for (Sales v : aux) {
-			if (v.getIdentification() > mayor) {
-				mayor = v.getIdentification();
+			if (v.getSalecode() > mayor) {
+				mayor = v.getSalecode();
 			}
+		}
+		if (aux.isEmpty()) {
+			mayor=1;
 		}
 		
 			return new ResponseEntity<>(mayor, HttpStatus.OK);
