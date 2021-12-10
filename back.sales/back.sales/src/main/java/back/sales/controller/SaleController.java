@@ -82,7 +82,7 @@ public class SaleController {
 
 	@GetMapping("/sales/code/{code}")
 	public ResponseEntity<Sales> getSalesBySaleCode(@PathVariable("code") Long code) {
-		Sales aux = saleRepository.findBySaleCode(code).get(0);
+		Sales aux = saleRepository.findBySalecode(code).get(0);
 		Optional<Sales> ventaData = Optional.of(aux);
 
 		if (ventaData.isPresent()) {
@@ -141,7 +141,7 @@ public class SaleController {
 	@PutMapping("/sales/code/{code}")
 	public ResponseEntity<Sales> updateSalesBySaleCode(@PathVariable("code") long code,
 			@RequestBody Sales sale) {
-		Sales aux = saleRepository.findBySaleCode(code).get(0);
+		Sales aux = saleRepository.findBySalecode(code).get(0);
 		Optional<Sales> ventaData = Optional.of(aux);
 
 		if (ventaData.isPresent()) {
@@ -172,7 +172,7 @@ public class SaleController {
 	@DeleteMapping("/sales/identification/{identification}")
 	public ResponseEntity<HttpStatus> deleteVentasByCedulacliente(@PathVariable("identification") long identification) {
 		try {
-			saleRepository.deleteBySaleCode(identification);
+			saleRepository.deleteBySalecode(identification);
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -182,7 +182,7 @@ public class SaleController {
 	@DeleteMapping("/sales/code/{code}")
 	public ResponseEntity<HttpStatus> deleteSalesByName(@PathVariable("code") Long code) {
 		try {
-			saleRepository.deleteBySaleCode(code);
+			saleRepository.deleteBySalecode(code);
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

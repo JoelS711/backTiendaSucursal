@@ -8,17 +8,21 @@ public class Consolidated {
 
 	@Id
 	private String id;
-	private String ciudad;
+	private String city;
 	private Long totalventas;
 	
 	public Consolidated() {
 	}
+	
+	
 
-	public Consolidated(String ciudad, Long totalventas) {
+	public Consolidated(String city, Long totalventas) {
 		super();
-		this.ciudad = ciudad;
+		this.city = city;
 		this.totalventas = totalventas;
 	}
+
+
 
 	public String getId() {
 		return id;
@@ -28,12 +32,12 @@ public class Consolidated {
 		this.id = id;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public String getCity() {
+		return city;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public Long getTotalventas() {
@@ -43,4 +47,7 @@ public class Consolidated {
 	public void setTotalventas(Long totalventas) {
 		this.totalventas = totalventas;
 	}
+
+	
+	
 }

@@ -1,6 +1,7 @@
 package back.products.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "products")
@@ -9,12 +10,13 @@ public class Products {
 	@Id
 	private String id;
 	
-	private String code;
+	@Indexed(unique=true)
+	private Long code;
 	private String name;
-	private String nitprovider;
-	private String purchaseprice;
-	private String iva;
-	private String saleprice;
+	private Long nitprovider;
+	private Double purchaseprice;
+	private Double iva;
+	private Double saleprice;
 	
 	
 	
@@ -25,7 +27,7 @@ public class Products {
 
 
 
-	public Products(String code, String name, String nitprovider, String purchaseprice, String iva, String saleprice) {
+	public Products(Long code, String name, Long nitprovider, Double purchaseprice, Double iva, Double saleprice) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -49,13 +51,13 @@ public class Products {
 
 
 
-	public String getCode() {
+	public Long getCode() {
 		return code;
 	}
 
 
 
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
@@ -73,59 +75,55 @@ public class Products {
 
 
 
-	public String getNitprovider() {
+	public Long getNitprovider() {
 		return nitprovider;
 	}
 
 
 
-	public void setNitprovider(String nitprovider) {
+	public void setNitprovider(Long nitprovider) {
 		this.nitprovider = nitprovider;
 	}
 
 
 
-	public String getPurchaseprice() {
+	public Double getPurchaseprice() {
 		return purchaseprice;
 	}
 
 
 
-	public void setPurchaseprice(String purchaseprice) {
+	public void setPurchaseprice(Double purchaseprice) {
 		this.purchaseprice = purchaseprice;
 	}
 
 
 
-	public String getIva() {
+	public Double getIva() {
 		return iva;
 	}
 
 
 
-	public void setIva(String iva) {
+	public void setIva(Double iva) {
 		this.iva = iva;
 	}
 
 
 
-	public String getSaleprice() {
+	public Double getSaleprice() {
 		return saleprice;
 	}
 
 
 
-	public void setSaleprice(String saleprice) {
+	public void setSaleprice(Double saleprice) {
 		this.saleprice = saleprice;
 	}
 
 
 
-//	@Override
-//	public String toString() {
-//		return "Products [id=" + id + ", code=" + code + ", name=" + name + ", nitprovider=" + nitprovider
-//				+ ", purchaseprice=" + purchaseprice + ", iva=" + iva + ", saleprice=" + saleprice + "]";
-//	}
+	
 	
 	
 	

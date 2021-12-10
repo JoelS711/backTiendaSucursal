@@ -11,6 +11,7 @@ public class Sales {
 
 	@Id
 	private String id;
+	
 	private long identification;
 	
 	@Indexed(unique=true)
