@@ -90,6 +90,8 @@ public class SupplierController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	//Se realiza la busqueda por el NIT del proveedor
 
 	@GetMapping("/suppliers/nit/{nit}")
 	public ResponseEntity<Supplier> getSupplierByNit(@PathVariable("nit") Long nit) {
