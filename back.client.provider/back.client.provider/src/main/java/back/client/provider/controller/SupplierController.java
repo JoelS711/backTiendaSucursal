@@ -120,7 +120,7 @@ public class SupplierController {
 
 	// PutMapping
 
-	// RECOMENDACIÓN, ENVIAR JSON SIN ID PERO EL SI ES OBLIGATORIO EN LA URL
+	// RECOMENDACIÓN, ENVIAR JSON SIN ID, PERO EL SI ES OBLIGATORIO EN LA URL YA QUE CON ESTE DATO SE SABE CUAL SE DEBE BUSCAR
 	@PutMapping("/suppliers/id/{id}")
 	public ResponseEntity<Supplier> updateSupplierById(@PathVariable("id") String id, @RequestBody Supplier supplier) {
 		Optional<Supplier> supplierData = supplierRepository.findById(id);
