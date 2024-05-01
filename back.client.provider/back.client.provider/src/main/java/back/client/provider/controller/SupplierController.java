@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.DuplicateKeyException;
 
-import back.client.provider.model.Client;
+
 import back.client.provider.model.Supplier;
 import back.client.provider.repository.SupplierRepository;
 
@@ -95,14 +95,23 @@ public class SupplierController {
 
 	@GetMapping("/suppliers/nit/{nit}")
 	public ResponseEntity<Supplier> getSupplierByNit(@PathVariable("nit") Long nit) {
-		Supplier aux = supplierRepository.findByNit(nit).get(0);
-		Optional<Supplier> supplierData = Optional.of(aux);
+		List<Supplier> suppliers = supplierRepository.findByNit(nit);
+		
+		if(!suppliers.isEmpty()) {
+			Supplier supplier = suppliers.get(0);
+			return new ResponseEntity<>(supplier, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+		/*Supplier ax = supplierRepository.findByNit(nit).get(0);
+		Optional<Supplier> supplierData = Optional.of(ax);
 
 		if (supplierData.isPresent()) {
 			return new ResponseEntity<>(supplierData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+		}*/
 	}
 
 	// PostMapping

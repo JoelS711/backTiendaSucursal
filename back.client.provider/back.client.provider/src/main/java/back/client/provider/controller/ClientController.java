@@ -90,14 +90,23 @@ public class ClientController {
 
 	@GetMapping("/clients/identification/{identification}")
 	public ResponseEntity<Client> getClientByIdentification(@PathVariable("identification") Long identification) {
-		Client aux = clientRepository.findByIdentification(identification).get(0);
+		
+		List<Client> clients = clientRepository.findByIdentification(identification);
+
+	    if (!clients.isEmpty()) {
+	        Client client = clients.get(0);
+	        return new ResponseEntity<>(client, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    }
+		/*Client aux = clientRepository.findByIdentification(identification).get(0);
 		Optional<Client> clienteData = Optional.of(aux);
 
 		if (clienteData.isPresent()) {
 			return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
+		}*/
 	}
 
 	
