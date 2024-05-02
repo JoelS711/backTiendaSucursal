@@ -99,14 +99,7 @@ public class ClientController {
 	    } else {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	    }
-		/*Client aux = clientRepository.findByIdentification(identification).get(0);
-		Optional<Client> clienteData = Optional.of(aux);
-
-		if (clienteData.isPresent()) {
-			return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}*/
+		
 	}
 
 	
