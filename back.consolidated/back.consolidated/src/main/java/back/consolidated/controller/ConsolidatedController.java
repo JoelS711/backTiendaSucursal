@@ -1,4 +1,4 @@
-package back.consolidated;
+package back.consolidated.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class ConsolidatedController {
 	}
 
 
-	@PostMapping("/consolidated/agregar/{cod}")
+	/*@PostMapping("/consolidated/agregar/{cod}")
 	public ResponseEntity<Consolidated> sumNewVentaToConsolidado(@PathVariable("cod") String cod) {
 		List<Consolidated> list = consolidatedRepository.findAll();
 		if(list.isEmpty()) {
@@ -103,5 +103,6 @@ public class ConsolidatedController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
+	}*/
+	
 }
