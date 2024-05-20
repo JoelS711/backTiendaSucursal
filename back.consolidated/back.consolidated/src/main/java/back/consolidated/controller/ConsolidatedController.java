@@ -7,14 +7,22 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import back.consolidated.model.Consolidated;
 import back.consolidated.repository.ConsolidatedRepository;
 
+@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:8085")
+@RestController
+@RequestMapping("/api")
 public class ConsolidatedController {
 
 	@Autowired
@@ -61,6 +69,18 @@ public class ConsolidatedController {
 	}
 
 
+	@PostMapping("/consolidated")
+	public ResponseEntity<Consolidated> addConsolidated(@RequestBody Consolidated consolidated){
+		try {
+			Consolidated add = consolidatedRepository.save(new Consolidated(consolidated.getCity(),consolidated.getIva(), consolidated.getTotalsale(), consolidated.getTotal()));
+			return new ResponseEntity<>(add, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
 	/*@PostMapping("/consolidated/agregar/{cod}")
 	public ResponseEntity<Consolidated> sumNewVentaToConsolidado(@PathVariable("cod") String cod) {
 		List<Consolidated> list = consolidatedRepository.findAll();
