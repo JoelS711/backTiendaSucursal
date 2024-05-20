@@ -22,7 +22,7 @@ public class SwaggerConfig {
 	public Docket apiDocket() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("back.reports"))
+				.apis(RequestHandlerSelectors.basePackage("back.report"))
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(getApiInfo())

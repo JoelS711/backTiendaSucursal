@@ -107,7 +107,7 @@ public class SaleController {
 	@PostMapping("/sales")
 	public ResponseEntity<Sales> createSale(@RequestBody Sales sale) {
 		try {
-			Sales _venta = saleRepository.save(new Sales(sale.getIdentification(), sale.getSalecode(),
+			Sales _venta = saleRepository.save(new Sales(sale.getCity(),sale.getIdentification(),sale.getName(), sale.getSalecode(),
 					sale.getSaledetail(), sale.getIvasale(), sale.getTotalsale(), sale.getSalevalue()));
 			return new ResponseEntity<>(_venta, HttpStatus.CREATED);
 		} catch (DuplicateKeyException e) {

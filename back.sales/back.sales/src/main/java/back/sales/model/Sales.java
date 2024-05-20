@@ -12,7 +12,9 @@ public class Sales {
 	@Id
 	private String id;
 	
+	private String city;
 	private long identification;
+	private String name;
 	
 	@Indexed(unique=true)
 	private long salecode;
@@ -25,10 +27,12 @@ public class Sales {
 		this.saledetail = new ArrayList<SaleDetail>();
 	}
 
-	public Sales(long identification, long salecode, ArrayList<SaleDetail> saledetail, double ivasale, double totalsale,
-			double salevalue) {
+	public Sales(String city, long identification, String name, long salecode, ArrayList<SaleDetail> saledetail,
+			double ivasale, double totalsale, double salevalue) {
 		super();
+		this.city = city;
 		this.identification = identification;
+		this.name = name;
 		this.salecode = salecode;
 		this.saledetail = saledetail;
 		this.ivasale = ivasale;
@@ -44,12 +48,28 @@ public class Sales {
 		this.id = id;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public long getIdentification() {
 		return identification;
 	}
 
 	public void setIdentification(long identification) {
 		this.identification = identification;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public long getSalecode() {
@@ -91,6 +111,8 @@ public class Sales {
 	public void setSalevalue(double salevalue) {
 		this.salevalue = salevalue;
 	}
+
+	
 
 
 
