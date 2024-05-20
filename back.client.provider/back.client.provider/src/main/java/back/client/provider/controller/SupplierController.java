@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.DuplicateKeyException;
 
-
+import back.client.provider.model.Client;
 import back.client.provider.model.Supplier;
 import back.client.provider.repository.SupplierRepository;
 
@@ -95,10 +95,10 @@ public class SupplierController {
 
 	@GetMapping("/suppliers/nit/{nit}")
 	public ResponseEntity<Supplier> getSupplierByNit(@PathVariable("nit") Long nit) {
-		List<Supplier> suppliers = supplierRepository.findByNit(nit);
+		Optional<Supplier> suppliers = supplierRepository.findByNit(nit);
 		
-		if(!suppliers.isEmpty()) {
-			Supplier supplier = suppliers.get(0);
+		if(suppliers.isPresent()) {
+			Supplier supplier = suppliers.get();
 			return new ResponseEntity<>(supplier, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -119,12 +119,15 @@ public class SupplierController {
 	@PostMapping("/suppliers")
 	public ResponseEntity<Supplier> createSupplier(@RequestBody Supplier supplier) {
 		try {
-			Supplier _supplier = supplierRepository.save(new Supplier(supplier.getNit(), supplier.getNamesupplier(),
-					supplier.getAddress(), supplier.getEmail(), supplier.getPhone()));
-			return new ResponseEntity<>(_supplier, HttpStatus.CREATED);
-		} catch (DuplicateKeyException e) {
-			return new ResponseEntity<>(null, HttpStatus.IM_USED);
+			Optional<Supplier> existingSupplier = supplierRepository.findByNit(supplier.getNit());
+			if (existingSupplier.isPresent()) {
+				return new ResponseEntity<>(null, HttpStatus.IM_USED);
+			}else {
+				Supplier _supplier = supplierRepository.save(new Supplier(supplier.getNit(),supplier.getNamesupplier(),supplier.getAddress(),supplier.getEmail(), supplier.getPhone()));
+				return new ResponseEntity<>(_supplier, HttpStatus.CREATED);
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -152,8 +155,8 @@ public class SupplierController {
 
 	@PutMapping("/suppliers/nit/{nit}")
 	public ResponseEntity<Supplier> updateSupplierByNit(@PathVariable("nit") long nit, @RequestBody Supplier supplier) {
-		Supplier aux = supplierRepository.findByNit(nit).get(0);
-		Optional<Supplier> supplierData = Optional.of(aux);
+		
+		Optional<Supplier> supplierData = supplierRepository.findByNit(nit);
 		if (supplierData.isPresent()) {
 			Supplier _supplier = supplierData.get();
 			_supplier.setNit(supplier.getNit());

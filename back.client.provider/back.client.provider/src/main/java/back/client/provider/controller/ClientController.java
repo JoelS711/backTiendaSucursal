@@ -91,10 +91,10 @@ public class ClientController {
 	@GetMapping("/clients/identification/{identification}")
 	public ResponseEntity<Client> getClientByIdentification(@PathVariable("identification") Long identification) {
 		
-		List<Client> clients = clientRepository.findByIdentification(identification);
+		Optional<Client> clients = clientRepository.findByIdentification(identification);
 
-	    if (!clients.isEmpty()) {
-	        Client client = clients.get(0);
+	    if (clients.isPresent()) {
+	        Client client = clients.get();
 	        return new ResponseEntity<>(client, HttpStatus.OK);
 	    } else {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -106,6 +106,19 @@ public class ClientController {
 	@PostMapping("/clients")
 	public ResponseEntity<Client> createClient(@RequestBody Client client) {
 		try {
+			Optional<Client> existingClient = clientRepository.findByIdentification(client.getIdentification());
+			if (existingClient.isPresent()) {
+				return new ResponseEntity<>(null, HttpStatus.IM_USED);
+			}else {
+				Client _cliente = clientRepository.save(new Client(client.getIdentification(), client.getAddress(),
+						client.getEmail(), client.getName(), client.getPhone()));
+				return new ResponseEntity<>(_cliente, HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		/*try {
 			Client _cliente = clientRepository.save(new Client(client.getIdentification(), client.getAddress(),
 					client.getEmail(), client.getName(), client.getPhone()));
 			return new ResponseEntity<>(_cliente, HttpStatus.CREATED);
@@ -114,7 +127,7 @@ public class ClientController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		}*/
 	}
 
 	// RECOMENDACIÓN, ENVIAR JSON SIN ID PERO EL SI ES OBLIGATORIO EN LA URL
@@ -139,8 +152,7 @@ public class ClientController {
 	@PutMapping("/clients/identification/{identification}")
 	public ResponseEntity<Client> updateClientByIdentification(@PathVariable("identification") long identification,
 			@RequestBody Client client) {
-		Client aux = clientRepository.findByIdentification(identification).get(0);
-		Optional<Client> clienteData = Optional.of(aux);
+		Optional<Client> clienteData = clientRepository.findByIdentification(identification);
 
 		if (clienteData.isPresent()) {
 			Client _cliente = clienteData.get();
