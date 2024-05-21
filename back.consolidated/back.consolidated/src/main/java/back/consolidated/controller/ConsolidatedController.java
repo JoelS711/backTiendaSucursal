@@ -92,48 +92,6 @@ public class ConsolidatedController {
 	}
 	
 	
-	/*@PostMapping("/consolidated/agregar/{cod}")
-	public ResponseEntity<Consolidated> sumNewVentaToConsolidado(@PathVariable("cod") String cod) {
-		List<Consolidated> list = consolidatedRepository.findAll();
-		if(list.isEmpty()) {
-			consolidatedRepository.save(new Consolidated("Bogota",0L));
-			consolidatedRepository.save(new Consolidated("Cali",0L));
-			consolidatedRepository.save(new Consolidated("Medellin",0L));
-		}
-		System.out.println(cod);
-		try {
-			if (cod.equals("1")) {
-				Consolidated aux = consolidatedRepository.findByCity("Bogota").get(0);
-				Optional<Consolidated> consolidadoData = Optional.of(aux);
 
-				if (consolidadoData.isPresent()) {
-					Consolidated _consolidado = consolidadoData.get();
-					_consolidado.setTotalventas(_consolidado.getTotalventas() + 1);
-					return new ResponseEntity<>(consolidatedRepository.save(_consolidado), HttpStatus.ACCEPTED);
-				}
-			}else if (cod.equals("3")) {
-				Consolidated aux = consolidatedRepository.findByCity("Cali").get(0);
-				Optional<Consolidated> consolidadoData = Optional.of(aux);
-
-				if (consolidadoData.isPresent()) {
-					Consolidated _consolidado = consolidadoData.get();
-					_consolidado.setTotalventas(_consolidado.getTotalventas() + 1);
-					return new ResponseEntity<>(consolidatedRepository.save(_consolidado), HttpStatus.ACCEPTED);
-				}
-			}else if (cod.equals("2")) {
-				Consolidated aux = consolidatedRepository.findByCity("Medellin").get(0);
-				Optional<Consolidated> consolidadoData = Optional.of(aux);
-
-				if (consolidadoData.isPresent()) {
-					Consolidated _consolidado = consolidadoData.get();
-					_consolidado.setTotalventas(_consolidado.getTotalventas() + 1);
-					return new ResponseEntity<>(consolidatedRepository.save(_consolidado), HttpStatus.ACCEPTED);
-				}
-			}
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}*/
 	
 }
