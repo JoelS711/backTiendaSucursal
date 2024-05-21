@@ -1,5 +1,7 @@
 package back.report.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +25,17 @@ public class ReportController {
 	@PostMapping("/report")
 	public ResponseEntity<Report> addReport(@RequestBody Report report){
 		try {
-			Report add = reportRepository.save(new Report(report.getCity(),report.getIdentification(), report.getName(), report.getTotal()));
-			return new ResponseEntity<>(add, HttpStatus.CREATED);
+			Optional<Report> existingReport = reportRepository.findByCityAndIdentification(report.getCity(), report.getIdentification());
+			if (existingReport.isPresent()) {
+				Report existing = existingReport.get();
+				existing.setTotal(existing.getTotal()+report.getTotal());
+				reportRepository.save(existing);
+				return new ResponseEntity<>(existing, HttpStatus.OK);
+			}else {
+				
+				Report add = reportRepository.save(report);
+				return new ResponseEntity<>(add, HttpStatus.CREATED);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
