@@ -1,6 +1,6 @@
 package back.consolidated.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +28,7 @@ public class ConsolidatedController {
 	@Autowired
 	ConsolidatedRepository consolidatedRepository;
 
-	@GetMapping("/consolidated")
+	/*@GetMapping("/consolidated")
 	public ResponseEntity<List<Consolidated>> getAllConsolidados(@RequestParam(required = false) String city) {
 		try {
 			List<Consolidated> consolidados = new ArrayList<Consolidated>();
@@ -48,9 +48,9 @@ public class ConsolidatedController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-	}
+	}*/
 
-	@GetMapping("/consolidated/city/{city}")
+	/*@GetMapping("/consolidated/city/{city}")
 	public ResponseEntity<List<Consolidated>> getConsolidadosByCiudad(@PathVariable("city") String city) {
 		try {
 			List<Consolidated> consolidados = new ArrayList<Consolidated>();
@@ -66,14 +66,25 @@ public class ConsolidatedController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-	}
+	}*/
 
 
 	@PostMapping("/consolidated")
 	public ResponseEntity<Consolidated> addConsolidated(@RequestBody Consolidated consolidated){
 		try {
-			Consolidated add = consolidatedRepository.save(new Consolidated(consolidated.getCity(),consolidated.getIva(), consolidated.getTotalsale(), consolidated.getTotal()));
-			return new ResponseEntity<>(add, HttpStatus.CREATED);
+			Optional<Consolidated> existingConsolidated = consolidatedRepository.findByCity(consolidated.getCity());
+			if(existingConsolidated.isPresent()) {
+				Consolidated existing = existingConsolidated.get();
+				existing.setIva(existing.getIva() + consolidated.getIva());
+				existing.setTotalsale(existing.getTotalsale() + consolidated.getTotalsale());
+				existing.setTotal(existing.getTotal() + consolidated.getTotal());
+				consolidatedRepository.save(existing);
+				return new ResponseEntity<>(existing, HttpStatus.OK);
+			}else {
+				Consolidated add = consolidatedRepository.save(consolidated);
+				return new ResponseEntity<>(add, HttpStatus.CREATED);
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
