@@ -1,6 +1,7 @@
 package back.consolidated.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,23 +51,27 @@ public class ConsolidatedController {
 
 	}*/
 
-	/*@GetMapping("/consolidated/city/{city}")
-	public ResponseEntity<List<Consolidated>> getConsolidadosByCiudad(@PathVariable("city") String city) {
+	@GetMapping("/consolidated/city/{city}")
+	public ResponseEntity<Consolidated> getConsolidadosByCiudad(@PathVariable("city") String city) {
 		try {
-			List<Consolidated> consolidados = new ArrayList<Consolidated>();
+			Optional<Consolidated> consolidate = consolidatedRepository.findByCity(city);
 
-			consolidatedRepository.findByCity(city).forEach(consolidados::add);
 
-			if (consolidados.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+			if (consolidate.isPresent()) {
+				Consolidated consolidated = consolidate.get();
+				
+				return new ResponseEntity<>(consolidated, HttpStatus.OK);
+			}else {
+				
+				return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 			}
 
-			return new ResponseEntity<>(consolidados, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-	}*/
+	}
 
 
 	@PostMapping("/consolidated")
