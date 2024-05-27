@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import back.report.model.Report;
 import back.report.repository.ReportRepository;
 
-@CrossOrigin(origins = "*")
-//@CrossOrigin(origins = "http://localhost:8086")
+//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:8086")
 @RestController
 @RequestMapping("/api")
 public class ReportController {

@@ -22,8 +22,8 @@ import com.mongodb.DuplicateKeyException;
 import back.sales.model.Sales;
 import back.sales.repository.SaleRepository;
 
-@CrossOrigin(origins = "*")
-//@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:8082")
 @RestController
 @RequestMapping("/api")
 public class SaleController {
