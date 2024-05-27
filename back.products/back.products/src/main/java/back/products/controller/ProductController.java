@@ -2,7 +2,6 @@ package back.products.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,6 @@ public class ProductController {
 	@PostMapping("/products")
 	public ResponseEntity<Products> createProduct(@RequestBody Products prod) {
 		try {
-//			this.deleteAllProducts();
 			Products _product = productRepository.save(new Products(prod.getCode(), prod.getName(),
 					prod.getNitprovider(), prod.getPurchaseprice(), prod.getIva(), prod.getSaleprice()));
 			return new ResponseEntity<>(_product, HttpStatus.CREATED);
