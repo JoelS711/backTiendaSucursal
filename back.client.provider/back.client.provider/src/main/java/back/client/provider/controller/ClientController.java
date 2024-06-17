@@ -116,16 +116,6 @@ public class ClientController {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		/*try {
-			Client _cliente = clientRepository.save(new Client(client.getIdentification(), client.getAddress(),
-					client.getEmail(), client.getName(), client.getPhone()));
-			return new ResponseEntity<>(_cliente, HttpStatus.CREATED);
-		} catch (DuplicateKeyException e) {
-			return new ResponseEntity<>(null, HttpStatus.IM_USED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}*/
 	}
 
 	// RECOMENDACIÓN, ENVIAR JSON SIN ID PERO EL SI ES OBLIGATORIO EN LA URL

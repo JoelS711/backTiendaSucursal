@@ -100,15 +100,6 @@ public class SupplierController {
 		}else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		
-		/*Supplier ax = supplierRepository.findByNit(nit).get(0);
-		Optional<Supplier> supplierData = Optional.of(ax);
-
-		if (supplierData.isPresent()) {
-			return new ResponseEntity<>(supplierData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}*/
 	}
 
 	// PostMapping
