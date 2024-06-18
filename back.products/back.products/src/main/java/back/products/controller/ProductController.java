@@ -73,17 +73,7 @@ public class ProductController {
 
 	}
 	
-//	@GetMapping("/products/code/{code}")
-//	public ResponseEntity<Products> findByCode(@PathVariable("code") long code) {
-//		Products aux = productRepository.findByCode(code).get(0);
-//		Optional<Products> productData = Optional.of(aux);
-//
-//		if (productData.isPresent()) {
-//			return new ResponseEntity<>(productData.get(), HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//		}
-//	}
+
 	
 	@GetMapping("/products/code/{code}")
 	public ResponseEntity<List<Products>> findByCode(@PathVariable("code") long code) {
